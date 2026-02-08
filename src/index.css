@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* Reseteo base para que no haya márgenes fantasma */
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #0f172a;
+  /* Fondo muy oscuro para los bordes en PC */
+}
+
+/* Contenedor responsivo tipo PWA */
+.pwa-container {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #0f172a;
+}
+
+/* En pantallas medianas (tablets/PC), limitamos el ancho para que parezca un celular */
+@media (min-width: 640px) {
+  .pwa-container {
+    max-width: 450px;
+    /* Ancho típico de un smartphone grande */
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
