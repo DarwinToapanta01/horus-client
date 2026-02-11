@@ -4,7 +4,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import api from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
-import { IconMap, IconCalendar, IconComment, IconVote, IconAlert } from '../../components/Icons';
+import { IconMap, IconCalendar, IconComment, IconVote, IconAlert, IconArrowLeft } from '../../components/Icons';
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -47,6 +47,16 @@ const MapaSeguridad = () => {
 
             {/* Header Flotante - RESPONSIVE */}
             <div className="absolute top-3 left-3 right-3 md:top-6 md:left-6 md:right-6 lg:left-40 lg:right-40 z-[1000] flex flex-col sm:flex-row justify-between items-stretch sm:items-start gap-2 md:gap-3">
+                {/* BOTÓN MENU PRINCIPAL */}
+                <button
+                    onClick={() => navigate('/menu')}
+                    className="bg-slate-900/90 backdrop-blur-lg border border-white/20 px-3 py-2 md:px-4 md:py-3 rounded-xl md:rounded-2xl shadow-2xl flex items-center gap-2 text-slate-300 hover:text-white hover:border-blue-500/40 transition-all active:scale-95"
+                >
+                    <IconArrowLeft className="w-4 h-4 md:w-5 md:h-5" />
+                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider">
+                        Menú Principal
+                    </span>
+                </button>
                 {/* Título */}
                 <div className="bg-slate-900/90 backdrop-blur-lg border border-white/20 px-3 py-2 md:px-5 md:py-3 rounded-xl md:rounded-2xl shadow-2xl flex-1">
                     <div className="flex items-center gap-2 md:gap-3">

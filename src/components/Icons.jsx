@@ -120,3 +120,18 @@ export const IconUnlock = ({ className = "w-8 h-8" }) => (
         <path d="M7 11V7a5 5 0 0 1 9.9-1" />
     </svg>
 );
+
+export const IconArrowLeft = ({ className = "w-5 h-5" }) => (
+    <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className={className}
+    >
+        <line x1="19" y1="12" x2="5" y2="12" />
+        <polyline points="12 19 5 12 12 5" />
+    </svg>
+);
