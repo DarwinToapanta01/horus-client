@@ -6,6 +6,9 @@ import { IconVote, IconAlert, IconCalendar, IconClock } from '../../components/I
 
 
 const VotacionLista = () => {
+    const [userLocation, setUserLocation] = useState(null);
+    const [locationError, setLocationError] = useState(null);
+
     const [reportes, setReportes] = useState([]);
     const [selectedReport, setSelectedReport] = useState(null);
     const [voto, setVoto] = useState(null);
@@ -53,7 +56,6 @@ const VotacionLista = () => {
         }
 
         setLoading(true);
-
         navigator.geolocation.getCurrentPosition(async (pos) => {
             try {
                 await api.post('/votes', {
@@ -75,6 +77,28 @@ const VotacionLista = () => {
             alert("Es necesario activar el GPS para votar.");
             setLoading(false);
         });
+    };
+
+    const handleUbicarme = () => {
+        setLocationError(null);
+
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                setUserLocation({
+                    lat: pos.coords.latitude,
+                    lng: pos.coords.longitude,
+                    accuracy: pos.coords.accuracy
+                });
+            },
+            () => {
+                setLocationError("No se pudo obtener la ubicación.");
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+            }
+        );
     };
 
     const reportesPendientes = reportes.filter(r => !r.is_expired);
@@ -107,6 +131,35 @@ const VotacionLista = () => {
                     </div>
                 </div>
             </header>
+
+            <div className="relative z-10 max-w-2xl mx-auto mb-6">
+                <div className="bg-slate-800/60 border border-purple-500/20 rounded-2xl p-4 text-sm">
+                    <div className="flex justify-between items-center">
+                        <span className="font-bold uppercase text-purple-400 tracking-wider">
+                            Diagnóstico de Ubicación
+                        </span>
+                        <button
+                            onClick={handleUbicarme}
+                            className="px-4 py-2 bg-purple-600 hover:bg-purple-500 rounded-xl text-xs font-bold uppercase tracking-wider transition-all active:scale-95"
+                        >
+                            Ubicarme
+                        </button>
+                    </div>
+
+                    {userLocation && (
+                        <div className="mt-3 text-slate-300 text-xs space-y-1">
+                            <p><strong>Lat:</strong> {userLocation.lat}</p>
+                            <p><strong>Lng:</strong> {userLocation.lng}</p>
+                            <p><strong>Precisión:</strong> {Math.round(userLocation.accuracy)} metros</p>
+                        </div>
+                    )}
+
+                    {locationError && (
+                        <p className="mt-2 text-red-400 text-xs">{locationError}</p>
+                    )}
+                </div>
+            </div>
+
 
             {/* Contenido */}
             <div className="relative z-10 space-y-4 max-w-2xl mx-auto pb-8">
